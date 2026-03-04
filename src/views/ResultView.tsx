@@ -21,7 +21,7 @@ export const ResultView: React.FC<ResultViewProps> = ({
 
     return (
         <div className="result-view" style={{ textAlign: 'center' }}>
-            <h2 style={{
+            <h2 className="stagger-1" style={{
                 color: isPass ? 'var(--success-color)' : 'var(--danger-color)',
                 fontSize: '2.5rem',
                 marginBottom: '2rem'
@@ -29,7 +29,7 @@ export const ResultView: React.FC<ResultViewProps> = ({
                 {isPass ? 'STAGE CLEAR!' : 'GAME OVER'}
             </h2>
 
-            <PixelContainer title="RESULTS">
+            <PixelContainer title="RESULTS" className="stagger-2">
                 <div style={{ fontSize: '1.2rem', margin: '20px 0', lineHeight: 2 }}>
                     <p>QUESTIONS: {totalQuestions}</p>
                     <p>SCORE: <span style={{ color: 'var(--secondary-color)', fontSize: '1.5rem' }}>{score}</span></p>

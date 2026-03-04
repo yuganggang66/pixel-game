@@ -30,12 +30,12 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
     };
 
     return (
-        <div className="login-view">
-            <h1 className="blink" style={{ color: 'var(--secondary-color)', fontSize: '2rem', marginBottom: '2rem' }}>
-                PIXEL TRIVIA
+        <div className="login-view" style={{ textAlign: 'center' }}>
+            <h1 className="stagger-1" style={{ fontSize: '3rem', marginBottom: '2rem', color: 'var(--primary-color)' }}>
+                PIXEL QUIZ
             </h1>
 
-            <PixelContainer title="INSERT COIN">
+            <PixelContainer title="LOGIN" className="stagger-2">
                 <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <label style={{ marginBottom: '10px', fontSize: '0.9rem' }}>ENTER PLAYER ID:</label>
                     <input
@@ -46,7 +46,7 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                         style={inputStyle}
                         autoFocus
                     />
-                    <PixelButton type="submit" disabled={!userId.trim()}>
+                    <PixelButton type="submit" className="stagger-3" disabled={!userId.trim()}>
                         START GAME
                     </PixelButton>
                 </form>

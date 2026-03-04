@@ -6,12 +6,12 @@ interface PixelButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>
   isBlinking?: boolean;
 }
 
-export const PixelButton: React.FC<PixelButtonProps> = ({ 
-  children, 
-  variant = 'primary', 
-  className = '', 
+export const PixelButton: React.FC<PixelButtonProps> = ({
+  children,
+  variant = 'primary',
+  className = '',
   isBlinking = false,
-  ...props 
+  ...props
 }) => {
   const getVariantColor = () => {
     switch (variant) {
@@ -22,36 +22,10 @@ export const PixelButton: React.FC<PixelButtonProps> = ({
     }
   };
 
-  const buttonStyle = {
-    backgroundColor: getVariantColor(),
-    color: '#fff',
-    padding: '12px 24px',
-    fontSize: '1rem',
-    textTransform: 'uppercase' as const,
-    boxShadow: 'var(--pixel-shadow)',
-    margin: '10px',
-    transition: 'transform 0.1s, filter 0.1s',
-  };
-
   return (
     <button
       className={`pixel-button ${isBlinking ? 'blink' : ''} ${className}`}
-      style={buttonStyle}
-      onMouseOver={(e) => {
-        (e.target as HTMLButtonElement).style.filter = 'brightness(1.2)';
-      }}
-      onMouseOut={(e) => {
-        (e.target as HTMLButtonElement).style.filter = 'brightness(1)';
-      }}
-      onMouseDown={(e) => {
-        (e.target as HTMLButtonElement).style.transform = 'scale(0.95)';
-      }}
-      onMouseUp={(e) => {
-        (e.target as HTMLButtonElement).style.transform = 'scale(1)';
-      }}
-      onMouseLeave={(e) => {
-        (e.target as HTMLButtonElement).style.transform = 'scale(1)';
-      }}
+      style={{ backgroundColor: getVariantColor() }}
       {...props}
     >
       {children}

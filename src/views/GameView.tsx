@@ -64,13 +64,13 @@ export const GameView: React.FC<GameViewProps> = ({ questions, onGameEnd }) => {
     };
 
     return (
-        <div className={`game-view ${isAnimating && selectedAnswer !== currentQuestion.answer ? 'shake' : ''}`}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', fontSize: '1.2rem', color: 'var(--secondary-color)' }}>
+        <div className={`game-view ${isAnimating && selectedAnswer !== currentQuestion.answer ? 'glitch' : ''}`}>
+            <div className="stagger-1" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', fontSize: '1.2rem', color: 'var(--secondary-color)' }}>
                 <span>STAGE {currentIndex + 1}/{questions.length}</span>
                 <span>SCORE: {score}</span>
             </div>
 
-            <PixelContainer title="BOSS ENCOUNTER">
+            <PixelContainer title="BOSS ENCOUNTER" className="stagger-2">
                 <Avatar seed={currentQuestion.id.toString() + currentQuestion.question} />
 
                 <div style={{

@@ -49,30 +49,35 @@ function App() {
   };
 
   return (
-    <div className="app-container">
-      {view === 'login' && <LoginView onLogin={handleLogin} />}
+    <>
+      <div className="crt-overlay"></div>
+      <div className="app-wrapper">
+        <div className="app-container">
+          {view === 'login' && <LoginView onLogin={handleLogin} />}
 
-      {view === 'loading' && (
-        <div className="loading-view" style={{ textAlign: 'center' }}>
-          <h2 className="blink" style={{ color: 'var(--secondary-color)' }}>LOADING...</h2>
-          <p>FETCHING DATA FROM SERVER</p>
+          {view === 'loading' && (
+            <div className="loading-view stagger-1" style={{ textAlign: 'center' }}>
+              <h2 className="blink" style={{ color: 'var(--secondary-color)' }}>LOADING...</h2>
+              <p>FETCHING DATA FROM SERVER</p>
+            </div>
+          )}
+
+          {view === 'game' && questions.length > 0 && (
+            <GameView questions={questions} onGameEnd={handleGameEnd} />
+          )}
+
+          {view === 'result' && (
+            <ResultView
+              score={score}
+              totalQuestions={questions.length}
+              threshold={threshold}
+              onRetry={handleRetry}
+              isSubmitting={isSubmitting}
+            />
+          )}
         </div>
-      )}
-
-      {view === 'game' && questions.length > 0 && (
-        <GameView questions={questions} onGameEnd={handleGameEnd} />
-      )}
-
-      {view === 'result' && (
-        <ResultView
-          score={score}
-          totalQuestions={questions.length}
-          threshold={threshold}
-          onRetry={handleRetry}
-          isSubmitting={isSubmitting}
-        />
-      )}
-    </div>
+      </div>
+    </>
   );
 }
 

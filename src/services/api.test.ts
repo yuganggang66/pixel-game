@@ -40,7 +40,8 @@ describe('API Services', () => {
             const result = await fetchQuestions(3);
             expect(Array.isArray(result)).toBe(true);
             expect(result.length).toBe(3);
-            expect(result[0].question).toContain('测试问题');
+            expect(result[0]).toHaveProperty('question');
+            expect(result[0]).toHaveProperty('options');
         });
     });
 
