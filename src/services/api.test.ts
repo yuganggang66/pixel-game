@@ -47,7 +47,7 @@ describe('API Services', () => {
 
     describe('submitScore', () => {
         it('should return true on successful submission simulation', async () => {
-            const payload = { id: 'test-id', score: 10, timestamp: '2026-03-01T00:00:00Z' };
+            const payload = { id: 'test-id', score: 10, playerName: 'TestPlayer', timestamp: '2026-03-01T00:00:00Z' };
             const result = await submitScore(payload);
             expect(result).toBe(true);
         });

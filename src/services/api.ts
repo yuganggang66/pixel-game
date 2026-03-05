@@ -12,8 +12,14 @@ export interface Question {
 
 interface ScorePayload {
     id: string;
+    playerName: string;
     score: number;
     timestamp: string;
+}
+
+export interface LeaderboardEntry {
+    name: string;
+    score: number;
 }
 
 const GAS_URL = import.meta.env.VITE_GOOGLE_APP_SCRIPT_URL;
@@ -183,5 +189,23 @@ export const submitScore = async (payload: ScorePayload): Promise<boolean> => {
     } catch (error) {
         console.error('Failed to submit score:', error);
         return false;
+    }
+};
+export const fetchLeaderboard = async (): Promise<LeaderboardEntry[]> => {
+    if (!GAS_URL || GAS_URL === 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec') {
+        return [
+            { name: 'PIXEL_MASTER', score: 10 },
+            { name: 'RETRO_KING', score: 8 },
+            { name: '8BIT_HERO', score: 5 }
+        ];
+    }
+
+    try {
+        const response = await fetch(`${GAS_URL}?action=get_leaderboard`);
+        const result = await response.json();
+        return result.success ? result.data : [];
+    } catch (error) {
+        console.error('Failed to fetch leaderboard:', error);
+        return [];
     }
 };

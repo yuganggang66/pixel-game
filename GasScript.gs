@@ -16,6 +16,33 @@ const SHEET_NAME_ANSWERS = '回答';
 
 function doGet(e) {
   try {
+    const action = e.parameter.action;
+
+    if (action === 'get_leaderboard') {
+      const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME_ANSWERS);
+      if (!sheet) throw new Error(`找不到工作表: ${SHEET_NAME_ANSWERS}`);
+      
+      const data = sheet.getDataRange().getValues();
+      const headers = data[0];
+      const rows = data.slice(1);
+      
+      const colId = headers.indexOf('ID');
+      const colName = headers.indexOf('昵称') > -1 ? headers.indexOf('昵称') : headers.indexOf('ID');
+      const colHighScore = headers.indexOf('最高分');
+      
+      const leaderboard = rows
+        .map(row => ({
+          name: row[colName] || row[colId],
+          score: row[colHighScore] || 0
+        }))
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 10);
+        
+      return ContentService.createTextOutput(JSON.stringify({ success: true, data: leaderboard }))
+        .setMimeType(ContentService.MimeType.JSON)
+        .setHeader("Access-Control-Allow-Origin", "*");
+    }
+
     const count = parseInt(e.parameter.count) || 5;
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME_QUESTIONS);
     
