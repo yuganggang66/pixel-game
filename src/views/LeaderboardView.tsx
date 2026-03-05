@@ -32,11 +32,13 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({ onBack }) => {
             <h2 className="glitch" style={{ marginBottom: '2rem' }}>Hall of Fame</h2>
 
             <PixelContainer style={{ padding: '20px', marginBottom: '2rem', maxHeight: '400px', overflowY: 'auto' }}>
-                {loading ? (
+                {loading && (
                     <div className="blink" style={{ textAlign: 'center', padding: '20px' }}>LOADING RANKINGS...</div>
-                ) : entries.length === 0 ? (
+                )}
+                {!loading && entries.length === 0 && (
                     <div style={{ textAlign: 'center', padding: '20px' }}>NO RECORDS YET</div>
-                ) : (
+                )}
+                {!loading && entries.length > 0 && (
                     <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--font-body)' }}>
                         <thead>
                             <tr style={{ color: 'var(--secondary-color)', textAlign: 'left', borderBottom: '2px solid var(--border-color)' }}>

@@ -5,8 +5,10 @@ import { GameView } from './views/GameView';
 import { ResultView } from './views/ResultView';
 import { LeaderboardView } from './views/LeaderboardView';
 import './App.css';
+import { AudioProvider } from './contexts/AudioContext';
+import { AudioToggle } from './components/AudioToggle';
 
-type ViewState = 'login' | 'loading' | 'game' | 'result' | 'leaderboard';
+export type ViewState = 'login' | 'loading' | 'game' | 'result' | 'leaderboard';
 
 function App() {
   const [view, setView] = useState<ViewState>('login');
@@ -46,9 +48,10 @@ function App() {
   };
 
   return (
-    <>
+    <AudioProvider>
       <div className="crt-overlay"></div>
       <div className="app-wrapper">
+        <AudioToggle />
         <div className="app-container">
           {view === 'login' && (
             <div className="login-wrapper">
@@ -92,7 +95,7 @@ function App() {
           )}
         </div>
       </div>
-    </>
+    </AudioProvider>
   );
 }
 
