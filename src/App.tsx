@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { fetchQuestions, submitScore, Question } from './services/api';
+import { fetchQuestions, submitScore, Question } from './shared/services/api';
 import { LoginView } from './views/LoginView';
 import { GameView } from './views/GameView';
 import { ResultView } from './views/ResultView';
 import { LeaderboardView } from './views/LeaderboardView';
 import './App.css';
-import { AudioProvider } from './contexts/AudioContext';
+import { AudioProvider } from './shared/contexts/AudioContext';
 import { AudioToggle } from './components/AudioToggle';
 
 export type ViewState = 'login' | 'loading' | 'game' | 'result' | 'leaderboard';

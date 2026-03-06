@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PixelContainer } from '../components/PixelContainer';
 import { PixelButton } from '../components/PixelButton';
-import { useAudio } from '../contexts/AudioContext';
+import { useAudio } from '../shared/contexts/AudioContext';
 
 interface ResultViewProps {
     score: number;

@@ -3,8 +3,8 @@ import { PixelContainer } from '../components/PixelContainer';
 import { PixelButton } from '../components/PixelButton';
 import { Avatar } from '../components/Avatar';
 import { PixelParticles } from '../components/PixelParticles';
-import { Question } from '../services/api';
-import { useAudio } from '../contexts/AudioContext';
+import { Question } from '../shared/services/api';
+import { useAudio } from '../shared/contexts/AudioContext';
 
 interface GameViewProps {
     questions: Question[];

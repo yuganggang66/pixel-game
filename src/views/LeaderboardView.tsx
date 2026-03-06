@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { PixelContainer } from '../components/PixelContainer';
 import { PixelButton } from '../components/PixelButton';
-import { fetchLeaderboard, LeaderboardEntry } from '../services/api';
+import { fetchLeaderboard, LeaderboardEntry } from '../shared/services/api';
 
 interface LeaderboardViewProps {
     onBack: () => void;
