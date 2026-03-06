@@ -2,7 +2,7 @@ import { render, screen, fireEvent, act } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { GameView } from './GameView';
 
-vi.mock('../../shared/contexts/AudioContext', () => ({
+vi.mock('../audio/AudioManager', () => ({
     useAudio: () => ({
         playCorrect: vi.fn(),
         playGameOver: vi.fn(),
@@ -36,7 +36,7 @@ describe('GameView Component', () => {
     it('renders the first question', () => {
         render(<GameView questions={mockQuestions} onGameEnd={vi.fn()} />);
 
-        expect(screen.getByText('What is 1 + 1?')).toBeInTheDocument();
+        expect(screen.getByText(/What is 1 \+ 1\?/i)).toBeInTheDocument();
         expect(screen.getByText(/2/)).toBeInTheDocument();
     });
 
@@ -48,12 +48,12 @@ describe('GameView Component', () => {
         const optionB = screen.getByText(/2/);
         fireEvent.click(optionB);
 
-        // Wait for potential delays/stagger
+        // Wait for potential delays/stagger (1200ms in component)
         await act(async () => {
             vi.advanceTimersByTime(1500);
         });
 
-        expect(screen.getByText('What is 2 + 2?')).toBeInTheDocument();
+        expect(screen.getByText(/What is 2 \+ 2\?/i)).toBeInTheDocument();
         vi.useRealTimers();
     });
 

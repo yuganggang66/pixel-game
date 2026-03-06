@@ -2,7 +2,7 @@ import { render, screen, fireEvent, act } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { ResultView } from './ResultView';
 
-vi.mock('../../shared/contexts/AudioContext', () => ({
+vi.mock('../audio/AudioManager', () => ({
     useAudio: () => ({
         playGameOver: vi.fn(),
         playCorrect: vi.fn(),

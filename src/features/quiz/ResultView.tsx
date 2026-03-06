@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PixelContainer } from '../../shared/components/PixelContainer';
 import { PixelButton } from '../../shared/components/PixelButton';
-import { useAudio } from '../../shared/contexts/AudioContext';
+import { useAudio } from '../audio/AudioManager';
 import { getQuizSummary } from '../../domain/quiz/quizDomain';
 
 interface ResultViewProps {

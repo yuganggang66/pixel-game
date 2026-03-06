@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { Question, fetchQuestions, submitScore } from '../services/api';
+import { Question, fetchQuestions, submitScore } from '../../features/ranking/RankingManager';
 
 export type GameState = 'LOGIN' | 'LOADING' | 'QUIZ' | 'RESULTS' | 'LEADERBOARD' | 'ERROR';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAudio } from '../contexts/AudioContext';
+import { useAudio } from '../../features/audio/AudioManager';
 
 interface PixelButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'danger' | 'success';
