@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { PixelContainer } from '../components/PixelContainer';
-import { PixelButton } from '../components/PixelButton';
-import { Avatar } from '../components/Avatar';
-import { PixelParticles } from '../components/PixelParticles';
+import { PixelContainer } from '../shared/components/PixelContainer';
+import { PixelButton } from '../shared/components/PixelButton';
+import { Avatar } from '../shared/components/Avatar';
+import { PixelParticles } from '../shared/components/PixelParticles';
 import { Question } from '../shared/services/api';
 import { useAudio } from '../shared/contexts/AudioContext';
 

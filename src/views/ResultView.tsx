@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { PixelContainer } from '../components/PixelContainer';
-import { PixelButton } from '../components/PixelButton';
+import { PixelContainer } from '../shared/components/PixelContainer';
+import { PixelButton } from '../shared/components/PixelButton';
 import { useAudio } from '../shared/contexts/AudioContext';
 
 interface ResultViewProps {

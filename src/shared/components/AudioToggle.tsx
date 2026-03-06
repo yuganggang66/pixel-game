@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAudio } from '../shared/contexts/AudioContext';
+import { useAudio } from '../contexts/AudioContext';
 
 const toggleStyle: React.CSSProperties = {
     position: 'absolute',

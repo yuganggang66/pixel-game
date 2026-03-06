@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { PixelContainer } from '../components/PixelContainer';
-import { PixelButton } from '../components/PixelButton';
+import { PixelContainer } from '../shared/components/PixelContainer';
+import { PixelButton } from '../shared/components/PixelButton';
 import { fetchLeaderboard, LeaderboardEntry } from '../shared/services/api';
 
 interface LeaderboardViewProps {
