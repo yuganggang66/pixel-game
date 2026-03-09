@@ -23,6 +23,10 @@ Synchronizes with our cloud databases to provide real-time leaderboards. It is d
 Manages all audio assets and visual effects. It reacts to game events (correct/wrong answers) but operates on its own dedicated thread to prevent UI lag.
 - **Goal**: Immersive User Experience.
 
+### 🕹️ Arcade Sandbox (Layout Architecture Constraint)
+A strict UI/UX architectural paradigm determining how the game renders on modern displays. It abandons fluid `100vw`/`100vh` scaling in favor of a mathematically constrained "Cabinet Sandbox" (e.g., fixed max-width, 16:9 ratio, centered).
+- **Goal**: Prevent extreme negative space, protect visual assets (like Pixel Maiden) from clipping, and enforce Fitts's Law for interaction elements across all viewports.
+
 ---
 
 ## 2. Why this matters for the Product

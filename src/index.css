@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=Press+Start+2P&display=swap');
 
 :root {
-  /* Color Palette (Deep Arcade & Neon) */
-  --bg-color: #050508;
-  --text-color: #f0f0f0;
+  /* Color Palette (Deep Arcade & Neon) - OKLCH Standards */
+  --bg-color: oklch(12% 0.02 220);
+  --text-color: oklch(95% 0.01 220);
   --primary-color: #ff00ff;
   /* Neon Magenta */
   --primary-hover: #cc00cc;
@@ -14,15 +14,15 @@
   --danger-hover: #d40047;
   --success-color: #00ff66;
   --warning-color: #ffff00;
-  --card-bg: rgba(22, 24, 36, 0.85);
-  --border-color: #333652;
+  --card-bg: oklch(18% 0.02 220);
+  /* Solid tinted neutral */
+  --border-color: oklch(25% 0.03 220);
   --neon-glow: 0 0 10px rgba(255, 0, 255, 0.5), 0 0 20px rgba(255, 0, 255, 0.3);
   --cyan-glow: 0 0 10px rgba(0, 243, 255, 0.5), 0 0 20px rgba(0, 243, 255, 0.3);
 
-  /* Glassmorphism */
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-blur: blur(12px);
+  /* Elevated Surfaces (Replacing Glassmorphism) */
+  --surface-raised: oklch(22% 0.02 220);
+  --surface-border: oklch(30% 0.03 220);
 
   /* Fonts */
   --font-heading: 'Press Start 2P', monospace;
@@ -175,11 +175,14 @@ h2 {
 }
 
 .glass-panel {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+  background: var(--surface-raised);
+  border: 1px solid var(--surface-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+}
+
+/* Accessibility & Typography Utilities */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
 }
 
 /* Generic Layout Wrapper */
@@ -387,6 +390,11 @@ button {
 
 .pixel-button:hover {
   filter: brightness(1.15);
+}
+
+.pixel-button:focus-visible {
+  outline: 4px solid var(--secondary-color);
+  outline-offset: 4px;
 }
 
 .pixel-button:active {

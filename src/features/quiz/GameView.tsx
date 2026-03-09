@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { PixelContainer } from '../../shared/components/PixelContainer';
+
 import { PixelButton } from '../../shared/components/PixelButton';
 import { Avatar } from '../../shared/components/Avatar';
 import { PixelParticles } from '../../shared/components/PixelParticles';
@@ -156,43 +156,62 @@ export const GameView: React.FC<GameViewProps> = ({ questions, onGameEnd }) => {
                 />
             )}
 
-            {/* Left Pane - Physical/Info HUD */}
-            <div className="left-pane">
-                <div className="stadium-bg" />
+            <div className="stadium-bg" />
 
-                <div className={`maiden-display ${maidenEmotion === 'sad' ? 'maiden-glitch' : ''}`}>
-                    <PixelMaiden emotion={maidenEmotion} />
+            {/* Header Row: Title on Left, HUD & Maiden on Right */}
+            <div className="game-header-row">
+                <div className="quest-header" style={{ marginBottom: 0 }}>
+                    <div className="quest-title">BOSS ENCOUNTER</div>
                 </div>
 
-                <div className="hud-container">
-                    <div className="hud-row">
-                        <span className="hud-label">STAGE</span>
-                        <span className="hud-value">{currentIndex + 1}/{questions.length}</span>
-                    </div>
-                    <div className="hud-row">
-                        <span className="hud-label">SCORE</span>
-                        <span className="hud-value" style={{ color: '#fbbf24' }}>{score.toString().padStart(6, '0')}</span>
-                    </div>
-                    <div className="hud-row">
-                        <span className="hud-label">LIVES</span>
-                        <div className="hearts-display">
-                            {[...Array(5)].map((_, i) => (
-                                <span
-                                    key={i}
-                                    className={i < lives ? 'heart-active' : ''}
-                                    style={{
-                                        opacity: i < lives ? 1 : 0.1,
-                                        filter: i < lives ? 'none' : 'grayscale(100%)',
-                                        transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
-                                    }}
-                                >
-                                    ❤️
-                                </span>
-                            ))}
+                <div className="header-right-side">
+                    <div className="hud-horizontal">
+                        <div className="hud-stat-group">
+                            <span className="hud-label">STAGE</span>
+                            <span className="hud-value tabular-nums">{currentIndex + 1}/{questions.length}</span>
+                            <span className="hud-label" style={{ marginLeft: '10px' }}>SCORE</span>
+                            <span className="hud-value tabular-nums" style={{ color: '#fbbf24' }}>{score.toString().padStart(6, '0')}</span>
+                            {combo > 1 && (
+                                <div className="combo-badge tabular-nums" style={{ marginLeft: '10px' }}>X{combo}</div>
+                            )}
                         </div>
-                    </div>
-                    <div className="hud-row" style={{ marginTop: '12px' }}>
-                        <div style={{ flex: 1, backgroundColor: '#111827', height: '8px', border: '1px solid #334155', borderRadius: '4px', overflow: 'hidden' }}>
+
+                        <div className="hud-stat-group">
+                            <span className="hud-label">LIVES</span>
+                            <div className="hearts-display" style={{ display: 'flex', gap: '4px' }}>
+                                {[...Array(5)].map((_, i) => (
+                                    <svg key={i} className={i < lives ? 'heart-active' : ''} style={{ opacity: i < lives ? 1 : 0.2, filter: i < lives ? 'none' : 'grayscale(100%)', width: '16px', height: '16px', transform: 'translateY(1px)' }} viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                    </svg>
+                                ))}
+                            </div>
+
+                            <div style={{ position: 'relative', width: '40px', height: '40px', marginLeft: '15px' }}>
+                                <svg width="40" height="40" viewBox="0 0 70 70">
+                                    <circle cx="35" cy="35" r="30" fill="rgba(15, 23, 42, 0.8)" stroke="rgba(0, 243, 255, 0.2)" strokeWidth="4" />
+                                    <circle
+                                        cx="35" cy="35" r="30" fill="none"
+                                        stroke={timeLeft > 10 ? "#00f3ff" : timeLeft > 5 ? "#fbbf24" : "#ef4444"}
+                                        strokeWidth="5"
+                                        strokeDasharray="188.4"
+                                        strokeDashoffset={188.4 - (188.4 * timeLeft) / 20}
+                                        strokeLinecap="round"
+                                        style={{ transition: 'stroke-dashoffset 1s linear, stroke 0.4s ease' }}
+                                        transform="rotate(-90 35 35)"
+                                    />
+                                    <text
+                                        x="50%" y="50%"
+                                        dominantBaseline="middle"
+                                        textAnchor="middle"
+                                        fill={timeLeft > 10 ? "#00f3ff" : timeLeft > 5 ? "#fbbf24" : "#ef4444"}
+                                        style={{ fontFamily: "'Press Start 2P'", fontSize: '10px', textShadow: '0 0 5px currentColor' }}
+                                    >
+                                        {timeLeft}
+                                    </text>
+                                </svg>
+                            </div>
+                        </div>
+                        <div style={{ flex: 1, backgroundColor: '#111827', height: '6px', border: '1px solid #334155', borderRadius: '3px', overflow: 'hidden', marginTop: '5px' }}>
                             <div style={{
                                 width: `${(currentIndex / questions.length) * 100}%`,
                                 height: '100%',
@@ -201,39 +220,33 @@ export const GameView: React.FC<GameViewProps> = ({ questions, onGameEnd }) => {
                             }} />
                         </div>
                     </div>
-                    <div className="hud-row" style={{ justifyContent: 'center', marginTop: '15px' }}>
-                        {combo > 1 && (
-                            <div key={combo} className="combo-badge">
-                                COMBO X{combo}
-                            </div>
-                        )}
+
+                    <div className={`maiden-mini ${maidenEmotion === 'sad' ? 'maiden-glitch' : ''}`}>
+                        <PixelMaiden emotion={maidenEmotion} />
                     </div>
                 </div>
             </div>
 
-            {/* Right Pane - Question Panel */}
-            <div className="right-pane">
-                <div className="quest-header">
-                    <div className="quest-title">BOSS ENCOUNTER</div>
-                </div>
-
-                <PixelContainer variant="glass" style={{ padding: '20px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-                        <Avatar seed={currentQuestion.id.toString() + (currentQuestion.question || '')} />
-                    </div>
-
-                    <div style={{
-                        backgroundColor: 'rgba(2, 6, 23, 0.7)',
-                        padding: '20px',
-                        border: '1px solid rgba(0, 243, 255, 0.2)',
-                        borderRadius: '4px',
-                        minHeight: '100px',
-                        fontSize: '0.9rem',
-                        lineHeight: '1.6',
-                        marginBottom: '20px',
-                        color: '#f8fafc'
-                    }}>
-                        {currentQuestion.question}
+            {/* Main Content: Question and full-width options */}
+            <div className="game-quest-row">
+                <div className="quest-content-wrapper-full" style={{ padding: '0 10px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '24px', marginBottom: '32px' }}>
+                        <div style={{ flexShrink: 0, filter: 'drop-shadow(0 0 10px rgba(0, 243, 255, 0.3))' }}>
+                            <Avatar seed={currentQuestion.id.toString() + (currentQuestion.question || '')} />
+                        </div>
+                        <div style={{
+                            flex: 1,
+                            backgroundColor: 'var(--surface-raised)',
+                            borderLeft: '4px solid var(--border-color)',
+                            padding: '28px 32px',
+                            fontSize: '1.05rem',
+                            lineHeight: '1.8',
+                            color: 'var(--text-color)',
+                            boxShadow: '0 10px 40px rgba(0,0,0,0.6)',
+                            fontWeight: 500
+                        }}>
+                            {currentQuestion.question}
+                        </div>
                     </div>
 
                     <div className="options-grid">
@@ -243,38 +256,12 @@ export const GameView: React.FC<GameViewProps> = ({ questions, onGameEnd }) => {
                                 variant={getButtonVariant(option.key)}
                                 isBlinking={isBlinking(option.key)}
                                 onClick={(e) => handleAnswer(option.key, e)}
-                                style={{ margin: 0, padding: '14px 15px', fontSize: '0.85rem', textAlign: 'left' }}
+                                style={{ margin: 0, padding: '20px 24px', fontSize: '0.95rem', textAlign: 'left', minHeight: '64px' }}
                             >
                                 [{option.key}] {option.value}
                             </PixelButton>
                         ))}
                     </div>
-                </PixelContainer>
-
-                {/* Circular SVG Timer */}
-                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px', position: 'relative' }}>
-                    <svg width="70" height="70" viewBox="0 0 70 70">
-                        <circle cx="35" cy="35" r="30" fill="none" stroke="rgba(0, 243, 255, 0.1)" strokeWidth="5" />
-                        <circle
-                            cx="35" cy="35" r="30" fill="none"
-                            stroke={timeLeft > 10 ? "#00f3ff" : timeLeft > 5 ? "#fbbf24" : "#ef4444"}
-                            strokeWidth="5"
-                            strokeDasharray="188.4"
-                            strokeDashoffset={188.4 - (188.4 * timeLeft) / 20}
-                            strokeLinecap="round"
-                            style={{ transition: 'stroke-dashoffset 1s linear, stroke 0.4s ease' }}
-                            transform="rotate(-90 35 35)"
-                        />
-                        <text
-                            x="50%" y="50%"
-                            dominantBaseline="middle"
-                            textAnchor="middle"
-                            fill={timeLeft > 10 ? "#00f3ff" : timeLeft > 5 ? "#fbbf24" : "#ef4444"}
-                            style={{ fontFamily: "'Press Start 2P'", fontSize: '12px', textShadow: '0 0 5px currentColor' }}
-                        >
-                            {timeLeft}
-                        </text>
-                    </svg>
                 </div>
             </div>
         </div>
