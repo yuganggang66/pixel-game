@@ -419,3 +419,23 @@ button {
     0 -4px 0 0 var(--border-color),
     0 4px 0 0 var(--border-color);
 }
+
+/* Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Completely disable the flickering pseudo elements */
+  .crt-overlay::after,
+  .crt-overlay::before,
+  .glass-edge-glow {
+    display: none !important;
+  }
+}

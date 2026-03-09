@@ -147,7 +147,6 @@ const getMockQuestions = (count: number): Question[] => {
 export const fetchQuestions = async (count: number): Promise<Question[]> => {
     // Use mock data if no GAS URL is provided
     if (!GAS_URL || GAS_URL === 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec') {
-        console.log('Using mock questions (No valid GAS URL configured)');
         return new Promise(resolve => setTimeout(() => resolve(getMockQuestions(count)), 1000));
     }
 
@@ -169,7 +168,6 @@ export const fetchQuestions = async (count: number): Promise<Question[]> => {
 
 export const submitScore = async (payload: ScorePayload): Promise<boolean> => {
     if (!GAS_URL || GAS_URL === 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec') {
-        console.log('Mock score submitted:', payload);
         return new Promise(resolve => setTimeout(() => resolve(true), 1000));
     }
 

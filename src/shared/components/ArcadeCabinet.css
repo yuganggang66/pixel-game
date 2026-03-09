@@ -120,13 +120,18 @@
 }
 
 .arcade-btn {
-    width: 35px;
-    height: 35px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     border-bottom: 4px solid rgba(0, 0, 0, 0.4);
     box-shadow: 0 4px 0 rgba(0, 0, 0, 0.6);
     cursor: pointer;
     transition: transform 0.1s;
+}
+
+.arcade-btn:focus-visible {
+    outline: 3px solid #00f3ff;
+    outline-offset: 4px;
 }
 
 .arcade-btn:active {
