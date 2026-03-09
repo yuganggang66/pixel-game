@@ -11,7 +11,7 @@ import './GameView.css';
 
 interface GameViewProps {
     questions: Question[];
-    onGameEnd: (score: number) => void;
+    onGameEnd: (score: number, correctCount: number) => void;
 }
 
 export const GameView: React.FC<GameViewProps> = ({ questions, onGameEnd }) => {
@@ -19,6 +19,7 @@ export const GameView: React.FC<GameViewProps> = ({ questions, onGameEnd }) => {
     const [score, setScore] = useState(0);
     const [lives, setLives] = useState(5);
     const [combo, setCombo] = useState(1);
+    const [correctCount, setCorrectCount] = useState(0);
     const [timeLeft, setTimeLeft] = useState(20);
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
     const [isAnimating, setIsAnimating] = useState(false);
@@ -74,9 +75,9 @@ export const GameView: React.FC<GameViewProps> = ({ questions, onGameEnd }) => {
 
     useEffect(() => {
         if (currentIndex >= questions.length || lives === 0) {
-            onGameEnd(score);
+            onGameEnd(score, correctCount);
         }
-    }, [currentIndex, questions.length, lives, score, onGameEnd]);
+    }, [currentIndex, questions.length, lives, score, correctCount, onGameEnd]);
 
     useEffect(() => {
         return () => {
@@ -97,6 +98,7 @@ export const GameView: React.FC<GameViewProps> = ({ questions, onGameEnd }) => {
         const isCorrect = checkAnswer(key, currentQuestion.answer);
         if (isCorrect) {
             playCorrect();
+            setCorrectCount(prev => prev + 1);
             setCombo(prev => {
                 const newCombo = prev; // use current combo for score
                 setScore(s => s + 100 * newCombo);

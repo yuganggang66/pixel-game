@@ -12,6 +12,7 @@ export const useGameState = () => {
     const [user, setUser] = useState<User | null>(null);
     const [questions, setQuestions] = useState<Question[]>([]);
     const [score, setScore] = useState(0);
+    const [correctCount, setCorrectCount] = useState(0);
     const [error, setError] = useState<string | null>(null);
 
     const login = useCallback(async (userId: string) => {
@@ -22,6 +23,7 @@ export const useGameState = () => {
             const data = await fetchQuestions(questionCount);
             setQuestions(data);
             setScore(0);
+            setCorrectCount(0);
             setState('QUIZ');
         } catch (err) {
             console.error('Login error:', err);
@@ -30,17 +32,18 @@ export const useGameState = () => {
         }
     }, []);
 
-    const completeQuiz = useCallback((finalScore: number) => {
+    const completeQuiz = useCallback((finalScore: number, finalCorrectCount: number) => {
         setScore(finalScore);
+        setCorrectCount(finalCorrectCount);
         setState('RESULTS');
     }, []);
 
-    const handleSumbitScore = useCallback(async (playerName: string) => {
+    const handleSumbitScore = useCallback(async () => {
         if (!user) return;
         try {
             await submitScore({
                 id: user.id,
-                playerName,
+                playerName: user.id,
                 score,
                 timestamp: new Date().toISOString()
             });
@@ -55,6 +58,7 @@ export const useGameState = () => {
 
     const restart = useCallback(() => {
         setScore(0);
+        setCorrectCount(0);
         setState('LOGIN');
     }, []);
 
@@ -67,6 +71,7 @@ export const useGameState = () => {
         user,
         questions,
         score,
+        correctCount,
         error,
         login,
         completeQuiz,

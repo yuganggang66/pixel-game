@@ -76,7 +76,7 @@ describe('GameView Component', () => {
             vi.advanceTimersByTime(1500);
         });
 
-        expect(handleGameEnd).toHaveBeenCalledWith(300); // 100*1 + 100*2 = 300
+        expect(handleGameEnd).toHaveBeenCalledWith(300, 2); // 100*1 + 100*2 = 300, 2 correct
         vi.useRealTimers();
     });
 

@@ -11,8 +11,10 @@ import { ArcadeCabinet } from './shared/components/ArcadeCabinet';
 function App() {
   const {
     state,
+    user,
     questions,
     score,
+    correctCount,
     error,
     login,
     completeQuiz,
@@ -40,7 +42,9 @@ function App() {
       case 'RESULTS':
         return (
           <ResultView
+            playerName={user?.id || 'PLAYER'}
             score={score}
+            correctCount={correctCount}
             totalQuestions={questions.length}
             threshold={threshold}
             onRetry={restart}
